@@ -1,4 +1,4 @@
-import 'package:edu_app/features/books/views/book_list_view.dart';
+import 'package:edu_app/features/textbook/views/screens/book_list_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
