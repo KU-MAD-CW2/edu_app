@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  static MaterialColor primaryColor = Colors.orange;
+  static MaterialColor primaryColor = Colors.red;
 
   static ThemeData lightTheme = ThemeData(
       useMaterial3: true,
@@ -10,6 +10,7 @@ class AppTheme {
       scaffoldBackgroundColor: Colors.white,
       brightness: Brightness.light,
       textTheme: lightTextTheme,
+      primaryColor: primaryColor,
       secondaryHeaderColor: Colors.grey.shade300,
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.white,
@@ -28,6 +29,17 @@ class AppTheme {
         ),
         backgroundColor: primaryColor.shade50,
         surfaceTintColor: primaryColor.shade100,
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: primaryColor.shade500,
+          textStyle: lightTextTheme.bodyLarge?.copyWith(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        ),
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
           backgroundColor: primaryColor.shade500));
@@ -65,24 +77,29 @@ class AppTheme {
           backgroundColor: primaryColor.shade500));
 
   static TextTheme lightTextTheme = TextTheme(
-      headlineLarge: GoogleFonts.poppins(
-        color: primaryColor,
-        fontSize: 36,
-        height: 0.9,
-        fontWeight: FontWeight.w600,
-      ),
-      headlineSmall: GoogleFonts.inter(
-          fontSize: 20, height: 1, fontWeight: FontWeight.w600),
-      titleLarge: GoogleFonts.inter(
-          fontSize: 36, height: 1, fontWeight: FontWeight.w500),
-      titleMedium: GoogleFonts.inter(
-          fontSize: 20, height: 1, fontWeight: FontWeight.w400),
-      bodyLarge: GoogleFonts.inter(
-          fontSize: 14, height: 1.5, fontWeight: FontWeight.w400),
-      bodyMedium: GoogleFonts.inter(
-        fontSize: 12,
-        height: 1.5,
-      ));
+    headlineLarge: GoogleFonts.poppins(
+      color: primaryColor,
+      fontSize: 36,
+      height: 0.9,
+      fontWeight: FontWeight.w600,
+    ),
+    headlineSmall:
+        GoogleFonts.inter(fontSize: 20, height: 1, fontWeight: FontWeight.w600),
+    titleLarge:
+        GoogleFonts.inter(fontSize: 36, height: 1, fontWeight: FontWeight.w500),
+    titleMedium:
+        GoogleFonts.inter(fontSize: 20, height: 1, fontWeight: FontWeight.w400),
+    bodyLarge: GoogleFonts.inter(
+        fontSize: 18, height: 1.5, fontWeight: FontWeight.w400),
+    bodyMedium: GoogleFonts.inter(
+      fontSize: 15,
+      height: 1.5,
+    ),
+    bodySmall: GoogleFonts.inter(
+      fontSize: 13,
+      height: 1.2,
+    ),
+  );
 
   static TextTheme darkTextTheme = TextTheme(
       headlineLarge: GoogleFonts.poppins(
