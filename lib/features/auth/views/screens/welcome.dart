@@ -1,5 +1,8 @@
+import 'package:edu_app/app/routes/routes.dart';
+import 'package:edu_app/common/fields/primary_button.dart';
 import 'package:edu_app/common/layout/app_safe_area.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -49,26 +52,15 @@ class WelcomeScreen extends StatelessWidget {
                   Text(
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(color: Colors.grey),
                   ),
                   SizedBox(height: 30),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(double.infinity, 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                    ),
-                    child: Text(
-                      "Let's Get Started",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
+                  PrimaryButton("Let's Get Started",
+                      onPressed: () =>
+                          context.replaceNamed(registerRoute.name as String)),
                   SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -80,7 +72,9 @@ class WelcomeScreen extends StatelessWidget {
                             ),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          context.replaceNamed(loginRoute.name as String);
+                        },
                         child: Text(
                           'Sign In',
                           style:
