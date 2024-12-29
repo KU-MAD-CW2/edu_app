@@ -10,6 +10,8 @@ class MainWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routeProvider);
 
+    AppTheme().setPrimaryColor(Colors.red);
+
     return MaterialApp.router(
       title: 'Edu App',
       debugShowCheckedModeBanner: false,

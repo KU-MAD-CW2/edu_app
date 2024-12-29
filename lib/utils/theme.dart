@@ -4,6 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTheme {
   static MaterialColor primaryColor = Colors.red;
 
+  setPrimaryColor(MaterialColor color) {
+    primaryColor = color;
+  }
+
   static ThemeData lightTheme = ThemeData(
       useMaterial3: true,
       canvasColor: Colors.white,
@@ -12,6 +16,7 @@ class AppTheme {
       textTheme: lightTextTheme,
       primaryColor: primaryColor,
       secondaryHeaderColor: Colors.grey.shade300,
+      splashColor: Colors.transparent,
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
@@ -24,12 +29,14 @@ class AppTheme {
       cardTheme: CardTheme(
           color: Colors.grey.shade100, shadowColor: Colors.white, elevation: 0),
       chipTheme: ChipThemeData(
-        shape: StadiumBorder(
-          side: BorderSide(color: primaryColor.shade100),
-        ),
-        backgroundColor: primaryColor.shade50,
-        surfaceTintColor: primaryColor.shade100,
-      ),
+          shape: StadiumBorder(
+            side: BorderSide(color: Colors.grey.shade100),
+          ),
+          backgroundColor: Colors.grey.shade100,
+          surfaceTintColor: Colors.grey.shade100,
+          labelStyle: lightTextTheme.bodyMedium?.copyWith(
+            color: Colors.grey.shade800,
+          )),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: primaryColor.shade500,
