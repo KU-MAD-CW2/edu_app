@@ -1,11 +1,12 @@
 import 'package:edu_app/features/auth/views/screens/login.dart';
 import 'package:edu_app/features/auth/views/screens/register.dart';
 import 'package:edu_app/features/auth/views/screens/welcome.dart';
+import 'package:edu_app/features/textbook/views/screens/home.dart';
 import 'package:go_router/go_router.dart';
 
-GoRoute homeRoute = GoRoute(
-  path: '/',
-  name: 'Home',
+GoRoute welcomeRoute = GoRoute(
+  path: '/welcome',
+  name: 'Welcome',
   builder: (context, state) => WelcomeScreen(),
 );
 
@@ -21,5 +22,11 @@ GoRoute loginRoute = GoRoute(
   builder: (context, state) => LoginScreen(),
 );
 
+GoRoute homeRoute = GoRoute(
+  path: '/',
+  name: 'Home',
+  builder: (context, state) => HomeScreen(),
+);
+
 // Route list
-List<GoRoute> routes = [homeRoute, registerRoute, loginRoute];
+List<GoRoute> routes = [homeRoute, registerRoute, loginRoute, welcomeRoute];
