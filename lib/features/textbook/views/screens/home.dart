@@ -139,11 +139,11 @@ class HomeScreen extends ConsumerWidget {
                   child: Row(
                     children: [
                       _buildBookCard("Shadow of Success", "Leslie E. Alexander",
-                          "assets/images/avatar.jpg"),
+                          "assets/images/book-1.jpg"),
                       _buildBookCard("Latest Fashion", "Jenny T. Wilson",
-                          "assets/images/avatar.jpg"),
+                          "assets/images/book-2.jpg"),
                       _buildBookCard("Travel Guides", "Robert Fox",
-                          "assets/images/avatar.jpg"),
+                          "assets/images/book-3.jpg"),
                     ],
                   ),
                 ),
