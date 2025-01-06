@@ -47,6 +47,9 @@ flutter:
   - .env
   - assets/images/welcome.png
   - assets/images/avatar.jpg
+  - assets/images/book-1.jpg
+  - assets/images/book-2.jpg
+  - assets/images/book-3.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

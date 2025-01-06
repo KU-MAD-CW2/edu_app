@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 final routeProvider = Provider<GoRouter>((ref) {
   return GoRouter(
-    initialLocation: homeRoute.path,
+    initialLocation: bookDetailRoute.path,
     routes: routes,
   );
 });
