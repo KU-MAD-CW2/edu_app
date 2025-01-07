@@ -6,11 +6,12 @@ class PasswordInputField extends ConsumerWidget {
   final String placeholder;
   final bool isPasswordVisible;
   final StateProvider isPasswordVisibleProvider;
-  final TextEditingController controller;
+  final TextEditingController? controller;
+  final void Function(dynamic value)? onChanged;
 
   const PasswordInputField(this.label, this.placeholder, this.isPasswordVisible,
       this.isPasswordVisibleProvider,
-      {super.key, required this.controller});
+      {super.key, this.controller, this.onChanged});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,7 +24,14 @@ class PasswordInputField extends ConsumerWidget {
               style: TextStyle(fontWeight: FontWeight.bold)),
         ),
         TextFormField(
-          controller: controller,
+          controller: onChanged == null ? controller : null,
+          onChanged: (value) => {
+            controller?.text = value,
+            if (onChanged != null)
+              {
+                onChanged!(value),
+              }
+          },
           obscureText: !isPasswordVisible,
           validator: (value) => value!.isEmpty ? 'Please enter $label!' : null,
           decoration: InputDecoration(

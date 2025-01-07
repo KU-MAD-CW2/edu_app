@@ -8,6 +8,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 final isPasswordVisibleProvider = StateProvider<bool>((ref) => false);
+final formValuesProvider = StateProvider<Map<String, String>>((ref) => {
+      'email': '',
+      'password': '',
+    });
 
 class LoginForm extends ConsumerWidget {
   LoginForm({
@@ -19,8 +23,7 @@ class LoginForm extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isPasswordVisible = ref.watch(isPasswordVisibleProvider);
-    final emailController = TextEditingController();
-    final passwordController = TextEditingController();
+    final formValues = ref.watch(formValuesProvider);
 
     return Form(
       key: _formKey,
@@ -31,26 +34,31 @@ class LoginForm extends ConsumerWidget {
           TextInputField(
             "Email",
             'example@gmail.com',
-            controller: emailController,
+            onChanged: (value) {
+              ref
+                  .read(formValuesProvider.notifier)
+                  .update((state) => {...state, 'email': value});
+            },
           ),
           SizedBox(height: 20),
           PasswordInputField("Password", '*********', isPasswordVisible,
-              isPasswordVisibleProvider,
-              controller: passwordController),
+              isPasswordVisibleProvider, onChanged: (value) {
+            ref
+                .read(formValuesProvider.notifier)
+                .update((state) => {...state, 'password': value});
+          }),
           SizedBox(height: 20),
           PrimaryButton("Sign In", onPressed: () async {
             if (_formKey.currentState!.validate()) {
               // Handle Sign In
               try {
-                bool success = await ref.read(authProvider.notifier).login(
-                      emailController.text,
-                      passwordController.text,
-                    );
+                bool success =
+                    await ref.read(authProvider.notifier).login(formValues);
                 if (!success) throw Exception('Login failed');
                 context.pushNamed(homeRoute.name as String);
               } catch (e) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(e.toString())),
+                  SnackBar(content: Text("Username or password is incorrect")),
                 );
               }
             }
