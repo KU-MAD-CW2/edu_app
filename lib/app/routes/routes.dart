@@ -2,6 +2,7 @@ import 'package:edu_app/features/auth/views/screens/login.dart';
 import 'package:edu_app/features/auth/views/screens/register.dart';
 import 'package:edu_app/features/auth/views/screens/welcome.dart';
 import 'package:edu_app/features/quiz/views/screens/quiz_list.dart';
+import 'package:edu_app/features/textbook/views/screens/book_details.dart';
 import 'package:edu_app/features/textbook/views/screens/home.dart';
 import 'package:go_router/go_router.dart';
 
@@ -27,6 +28,12 @@ GoRoute homeRoute = GoRoute(
   path: '/',
   name: 'Home',
   builder: (context, state) => HomeScreen(),
+);
+
+GoRoute bookDetailRoute = GoRoute(
+  path: '/books/detail',
+  name: 'BookDetail',
+  builder: (context, state) => BookDetailsScreen(),
 );
 
 GoRoute quizList = GoRoute(
