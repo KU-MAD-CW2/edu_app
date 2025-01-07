@@ -4,7 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class TextInputField extends ConsumerWidget {
   final String label;
   final String placeholder;
-  const TextInputField(this.label, this.placeholder, {super.key});
+  final TextEditingController controller;
+
+  const TextInputField(this.label, this.placeholder,
+      {super.key, required this.controller});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,6 +20,7 @@ class TextInputField extends ConsumerWidget {
               style: TextStyle(fontWeight: FontWeight.bold)),
         ),
         TextFormField(
+          controller: controller,
           validator: (value) => value!.isEmpty ? 'Please enter $label!' : null,
           decoration: InputDecoration(
             hintText: placeholder,

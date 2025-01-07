@@ -21,6 +21,9 @@ class RegisterForm extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isPasswordVisible = ref.watch(isPasswordVisibleProvider);
     final isTermsAccepted = ref.watch(isTermsAcceptedProvider);
+    final nameController = TextEditingController();
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
 
     return Form(
       key: _formKey,
@@ -28,12 +31,14 @@ class RegisterForm extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          TextInputField('Name', "Ex. John Doe"),
+          TextInputField('Name', "Ex. John Doe", controller: nameController),
           SizedBox(height: 20),
-          TextInputField("Email", 'example@gmail.com'),
+          TextInputField("Email", 'example@gmail.com',
+              controller: emailController),
           SizedBox(height: 20),
           PasswordInputField("Password", '*********', isPasswordVisible,
-              isPasswordVisibleProvider),
+              isPasswordVisibleProvider,
+              controller: passwordController),
           SizedBox(height: 20),
           TermsInputField(isTermsAccepted, isTermsAcceptedProvider),
           SizedBox(height: 20),
