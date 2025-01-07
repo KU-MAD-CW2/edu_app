@@ -1,6 +1,7 @@
 import 'package:edu_app/features/auth/views/screens/login.dart';
 import 'package:edu_app/features/auth/views/screens/register.dart';
 import 'package:edu_app/features/auth/views/screens/welcome.dart';
+import 'package:edu_app/features/quiz/views/screens/quiz_list.dart';
 import 'package:edu_app/features/textbook/views/screens/home.dart';
 import 'package:go_router/go_router.dart';
 
@@ -28,5 +29,17 @@ GoRoute homeRoute = GoRoute(
   builder: (context, state) => HomeScreen(),
 );
 
+GoRoute quizList = GoRoute(
+  path: '/quiz-list',
+  name: 'Quiz List',
+  builder: (context, state) => QuizList(),
+);
+
 // Route list
-List<GoRoute> routes = [homeRoute, registerRoute, loginRoute, welcomeRoute];
+List<GoRoute> routes = [
+  homeRoute,
+  registerRoute,
+  loginRoute,
+  welcomeRoute,
+  quizList
+];
