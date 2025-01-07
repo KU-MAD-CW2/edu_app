@@ -1,5 +1,6 @@
 import 'package:edu_app/common/layout/app_navigation_bar.dart';
 import 'package:edu_app/common/layout/app_safe_area.dart';
+import 'package:edu_app/features/auth/conrollers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -9,9 +10,11 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(authProvider)?['user'];
+
     return AppSafeArea(
         child: Scaffold(
-      appBar: _buildAppBar(),
+      appBar: _buildAppBar(user['name']),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -30,7 +33,7 @@ class HomeScreen extends ConsumerWidget {
     ));
   }
 
-  AppBar _buildAppBar() {
+  AppBar _buildAppBar(String name) {
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 0,
@@ -47,7 +50,7 @@ class HomeScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Hello, Esther!",
+                    "Hello, $name!",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 22,
