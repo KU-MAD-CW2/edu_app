@@ -174,8 +174,36 @@ class _QuizDetailsState extends ConsumerState<QuizDetails> {
             builder: (BuildContext context) {
               return AlertDialog(
                 title: Text("Your Score"),
-                content: Text(
-                    "You scored $correctAnswers out of ${quizDetails.questions.length} marks"),
+                content: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                        "You scored $correctAnswers out of ${quizDetails.questions.length} marks"),
+                    SizedBox(height: 16),
+                    ...quizDetails.questions.map((question) {
+                      int questionId =
+                          quizDetails.questions.indexOf(question) + 1;
+                      Answer correctAnswer = question.answers
+                          .firstWhere((answer) => answer.isCorrect);
+                      bool isCorrect = _selectedAnswer[questionId] ==
+                          correctAnswer.id.toString();
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(question.question),
+                          Text(
+                              "Your answer: ${_selectedAnswer[questionId] != null ? question.answers.firstWhere((answer) => answer.id.toString() == _selectedAnswer[questionId]).answer : "Not answered"}"),
+                          Text("Correct answer: ${correctAnswer.answer}"),
+                          Text(isCorrect ? "Correct" : "Incorrect",
+                              style: TextStyle(
+                                  color:
+                                      isCorrect ? Colors.green : Colors.red)),
+                          SizedBox(height: 16),
+                        ],
+                      );
+                    }),
+                  ],
+                ),
               );
             },
           );
