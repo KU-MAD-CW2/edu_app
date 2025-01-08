@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:go_router/go_router.dart';
+import 'package:edu_app/app/routes/routes.dart';
 
 class AppNavigationBar extends StatefulWidget {
   const AppNavigationBar({super.key});
@@ -15,6 +17,15 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
     setState(() {
       _selectedIndex = index;
     });
+
+    switch (index) {
+      case 0:
+        context.go(homeRoute.path);
+        break;
+      case 1:
+        context.go(quizList.path);
+        break;
+    }
   }
 
   @override
@@ -59,11 +70,11 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
             ),
             BottomNavigationBarItem(
               icon: HugeIcon(
-                icon: HugeIcons.strokeRoundedDiscoverSquare,
+                icon: HugeIcons.strokeRoundedQuiz02,
                 color: _selectedIndex == 1 ? Colors.red : Colors.grey,
                 size: 30.0,
               ),
-              label: 'Discover',
+              label: 'Quiz',
             ),
             BottomNavigationBarItem(
               icon: HugeIcon(
