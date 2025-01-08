@@ -8,6 +8,7 @@ import 'package:edu_app/features/textbook/models/chapter.dart';
 import 'package:edu_app/features/textbook/views/screens/book_details.dart';
 import 'package:edu_app/features/textbook/views/screens/book_list_view.dart';
 import 'package:edu_app/features/textbook/views/screens/book_reading.dart';
+import 'package:edu_app/features/textbook/views/screens/bookmark_list.dart';
 import 'package:edu_app/features/textbook/views/screens/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
@@ -76,6 +77,13 @@ GoRoute quizDetails = GoRoute(
   builder: (context, state) => QuizDetails(),
 );
 
+GoRoute bookmarkRoute = GoRoute(
+  path: '/bookmark',
+  name: 'Bookmark',
+  pageBuilder: (context, state) =>
+      _buildPageWithAnimation(state, BookmarkList()),
+);
+
 // Route list
 List<GoRoute> routes = [
   homeRoute,
@@ -86,7 +94,8 @@ List<GoRoute> routes = [
   bookDetailRoute,
   bookListRoute,
   chapterDetailRoute,
-  quizDetails
+  quizDetails,
+  bookmarkRoute
 ];
 
 Page<dynamic> _buildPageWithAnimation(GoRouterState state, Widget child) {

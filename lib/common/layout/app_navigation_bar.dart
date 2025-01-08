@@ -21,8 +21,8 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
   Map<int, GoRoute> routes = {
     0: homeRoute,
     1: quizList,
-    2: homeRoute,
-    3: bookListRoute,
+    2: bookListRoute,
+    3: bookmarkRoute,
     4: homeRoute
   };
 
@@ -89,19 +89,19 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
             ),
             BottomNavigationBarItem(
               icon: HugeIcon(
-                icon: HugeIcons.strokeRoundedAllBookmark,
+                icon: HugeIcons.strokeRoundedLibraries,
                 color: _selectedIndex == 2 ? Colors.red : Colors.grey,
                 size: 30.0,
               ),
-              label: 'Bookmark',
+              label: 'Library',
             ),
             BottomNavigationBarItem(
               icon: HugeIcon(
-                icon: HugeIcons.strokeRoundedLibraries,
+                icon: HugeIcons.strokeRoundedAllBookmark,
                 color: _selectedIndex == 3 ? Colors.red : Colors.grey,
                 size: 30.0,
               ),
-              label: 'Library',
+              label: 'Bookmark',
             ),
             BottomNavigationBarItem(
               icon: HugeIcon(

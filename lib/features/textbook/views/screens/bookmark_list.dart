@@ -1,0 +1,66 @@
+import 'package:edu_app/common/layout/app_navigation_bar.dart';
+import 'package:edu_app/common/layout/app_safe_area.dart';
+import 'package:edu_app/features/textbook/controllers/bookmark_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class BookmarkList extends ConsumerStatefulWidget {
+  const BookmarkList({super.key});
+
+  @override
+  _BookmarkListState createState() => _BookmarkListState();
+}
+
+class _BookmarkListState extends ConsumerState<BookmarkList> {
+  @override
+  Widget build(BuildContext context) {
+    final bookMarks = ref.watch(bookmarkProvider);
+    final bookmarksNotifier = ref.watch(bookmarkProvider.notifier);
+
+    return AppSafeArea(
+        child: Scaffold(
+      appBar: AppBar(
+        title: Text('Bookmark'),
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              children: [
+                Text(
+                  'Total book saved',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                SizedBox(width: 8),
+                Chip(
+                  label: Text('${bookMarks.length} items'),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: bookMarks.length,
+              itemBuilder: (context, index) {
+                final book = bookMarks[index];
+                return ListTile(
+                  leading: Image.network(book.cover_image),
+                  title: Text(book.title),
+                  subtitle: Text(book.user!.name),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      bookmarksNotifier.removeBook(book);
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: AppNavigationBar(currentIndex: 3),
+    ));
+  }
+}
