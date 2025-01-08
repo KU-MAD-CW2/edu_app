@@ -138,7 +138,7 @@ class _QuizDetailsState extends ConsumerState<QuizDetails> {
                           return Row(
                             children: [
                               Radio<String>(
-                                value: answer.answer,
+                                value: answer.id.toString(),
                                 groupValue: _selectedAnswer[questionId],
                                 onChanged: (value) {
                                   setState(() {
@@ -165,7 +165,7 @@ class _QuizDetailsState extends ConsumerState<QuizDetails> {
             Question question = quizDetails.questions[i];
             Answer correctAnswer =
                 question.answers.firstWhere((answer) => answer.isCorrect);
-            if (_selectedAnswer[i + 1] == correctAnswer.answer) {
+            if (_selectedAnswer[i + 1] == correctAnswer.id.toString()) {
               correctAnswers++;
             }
           }
