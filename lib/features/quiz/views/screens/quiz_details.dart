@@ -1,24 +1,28 @@
 import 'package:edu_app/common/layout/app_navigation_bar.dart';
 import 'package:edu_app/common/layout/app_safe_area.dart';
 import 'package:edu_app/features/auth/conrollers/auth_provider.dart';
+import 'package:edu_app/features/quiz/controllers/quiz_details_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 
-class QuizDetails extends ConsumerStatefulWidget {
+class QuizDetails extends ConsumerWidget {
   final int quizId;
   const QuizDetails(this.quizId, {super.key});
 
   @override
-  _QuizDetailsState createState() => _QuizDetailsState();
-}
-
-class _QuizDetailsState extends ConsumerState<QuizDetails> {
-  final Map<int, String?> _selectedAnswer = {};
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(authProvider)?['user'];
+    final quizDetails = ref.watch(quizDetailsProvider);
+    final QuizDetailsNotifier quizDetailsNotifier =
+        ref.read(quizDetailsProvider.notifier);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (quizDetails == null) {
+        quizDetailsNotifier.fetchQuiz(quizId);
+      }
+    });
+
     return AppSafeArea(
         child: Scaffold(
       appBar: _buildAppBar(user.name),
@@ -27,7 +31,7 @@ class _QuizDetailsState extends ConsumerState<QuizDetails> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [_quizDetails()]),
+              children: [_quizDetails(quizDetails)]),
         ),
       ),
       bottomNavigationBar: AppNavigationBar(currentIndex: 1),
@@ -86,7 +90,7 @@ class _QuizDetailsState extends ConsumerState<QuizDetails> {
     );
   }
 
-  Widget _quizDetails() {
+  Widget _quizDetails(quizDetails) {
     return ListView.builder(
       shrinkWrap: true,
       physics: ClampingScrollPhysics(),
