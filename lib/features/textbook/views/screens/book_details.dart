@@ -1,6 +1,7 @@
 import 'package:edu_app/app/routes/routes.dart';
 import 'package:edu_app/common/layout/app_safe_area.dart';
 import 'package:edu_app/features/textbook/controllers/book_detail_provider.dart';
+import 'package:edu_app/features/textbook/controllers/bookmark_provider.dart';
 import 'package:edu_app/features/textbook/models/book.dart';
 import 'package:edu_app/features/textbook/views/widgets/about_book.dart';
 import 'package:edu_app/features/textbook/views/widgets/book_chapters.dart';
@@ -17,15 +18,20 @@ class BookDetailsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bookItem = ref.watch(bookDetailProvider);
+    final bookmarks = ref.watch(bookmarkProvider);
+    final bookmarkNotifier = ref.watch(bookmarkProvider.notifier);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(bookDetailProvider.notifier).getBook(book.id);
+      if (bookItem == null) {
+        ref.read(bookDetailProvider.notifier).getBook(book.id);
+        bookmarkNotifier.loadBookmarks();
+      }
     });
 
     return AppSafeArea(
         appBarColor: Colors.grey.shade100,
         child: Scaffold(
-          appBar: _buildAppBar(context),
+          appBar: _buildAppBar(context, bookmarkNotifier, bookmarks),
           body: Stack(
             children: [
               SingleChildScrollView(
@@ -158,7 +164,12 @@ class BookDetailsScreen extends ConsumerWidget {
     );
   }
 
-  AppBar _buildAppBar(BuildContext context) {
+  AppBar _buildAppBar(BuildContext context, BookmarkNotifier bookmarksNotifier,
+      List<Book>? bookmarks) {
+    bool isBookmarked = bookmarksNotifier.isBookmarked(book);
+    bool isBookmarkedInList =
+        bookmarks != null && bookmarks.any((b) => b.id == book.id);
+
     return AppBar(
       title: Text('Book Details',
           style: Theme.of(context).textTheme.headlineMedium),
@@ -174,8 +185,25 @@ class BookDetailsScreen extends ConsumerWidget {
           onPressed: () {},
         ),
         IconButton(
-          icon: Icon(Icons.bookmark_border),
-          onPressed: () {},
+          icon:
+              Icon(isBookmarkedInList ? Icons.bookmark : Icons.bookmark_border),
+          onPressed: () {
+            if (isBookmarked) {
+              bookmarksNotifier.removeBook(book);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Book removed from bookmarks'),
+                ),
+              );
+            } else {
+              bookmarksNotifier.addBook(book);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Book added to bookmarks'),
+                ),
+              );
+            }
+          },
         ),
       ],
     );
