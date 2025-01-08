@@ -59,7 +59,7 @@ GoRoute chapterDetailRoute = GoRoute(
 
 GoRoute quizList = GoRoute(
   path: '/quiz-list',
-  name: 'Quiz List',
+  name: 'QuizList',
   pageBuilder: (context, state) => _buildPageWithAnimation(state, QuizList()),
 );
 
@@ -72,8 +72,9 @@ GoRoute bookListRoute = GoRoute(
 
 GoRoute quizDetails = GoRoute(
   path: '/quiz-details',
-  name: 'Quiz Details',
-  builder: (context, state) => QuizDetails(),
+  name: 'QuizDetails',
+  pageBuilder: (context, state) =>
+      _buildPageWithAnimation(state, QuizDetails(state.extra as int)),
 );
 
 // Route list

@@ -1,8 +1,10 @@
+import 'package:edu_app/app/routes/routes.dart';
 import 'package:edu_app/common/layout/app_navigation_bar.dart';
 import 'package:edu_app/common/layout/app_safe_area.dart';
 import 'package:edu_app/features/quiz/models/quiz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:edu_app/features/auth/conrollers/auth_provider.dart';
 import 'package:edu_app/features/quiz/controllers/quiz_provider.dart';
@@ -118,7 +120,10 @@ class QuizList extends ConsumerWidget {
                 ),
               ],
             ),
-            onTap: () {},
+            onTap: () {
+              context.goNamed(quizDetails.name as String,
+                  extra: quizzes[index].id);
+            },
           ),
         );
       },

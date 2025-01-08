@@ -5,11 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 
-class QuizDetails extends ConsumerWidget {
-  const QuizDetails({super.key});
+class QuizDetails extends ConsumerStatefulWidget {
+  final int quizId;
+  const QuizDetails(this.quizId, {super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  _QuizDetailsState createState() => _QuizDetailsState();
+}
+
+class _QuizDetailsState extends ConsumerState<QuizDetails> {
+  final Map<int, String?> _selectedAnswer = {};
+
+  @override
+  Widget build(BuildContext context) {
     final user = ref.watch(authProvider)?['user'];
     return AppSafeArea(
         child: Scaffold(
@@ -19,7 +27,7 @@ class QuizDetails extends ConsumerWidget {
           padding: const EdgeInsets.all(16.0),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [_quizList()]),
+              children: [_quizDetails()]),
         ),
       ),
       bottomNavigationBar: AppNavigationBar(currentIndex: 1),
@@ -78,45 +86,87 @@ class QuizDetails extends ConsumerWidget {
     );
   }
 
-  Widget _quizList() {
+  Widget _quizDetails() {
     return ListView.builder(
       shrinkWrap: true,
       physics: ClampingScrollPhysics(),
-      itemCount: 15,
+      itemCount: 10,
       itemBuilder: (context, index) {
-        return Row(children: [
-          Expanded(
-            child: Card(
-              color: Colors.red.shade50,
-              margin: EdgeInsets.symmetric(vertical: 8.0),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: ListTile(
-                title: Text('Quiz ${index * 2 + 1}'),
-                subtitle: Text('Description for Quiz ${index * 2 + 1}'),
-                onTap: () {},
+        int questionId = index + 1;
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Question $questionId"),
+            SizedBox(height: 8),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("What is the capital of France?"),
+                    Row(
+                      children: [
+                        Radio<String>(
+                          value: "Paris",
+                          groupValue: _selectedAnswer[questionId],
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedAnswer[questionId] = value;
+                            });
+                          },
+                        ),
+                        Text("Paris"),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Radio<String>(
+                          value: "London",
+                          groupValue: _selectedAnswer[questionId],
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedAnswer[questionId] = value;
+                            });
+                          },
+                        ),
+                        Text("London"),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Radio<String>(
+                          value: "Berlin",
+                          groupValue: _selectedAnswer[questionId],
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedAnswer[questionId] = value;
+                            });
+                          },
+                        ),
+                        Text("Berlin"),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Radio<String>(
+                          value: "Madrid",
+                          groupValue: _selectedAnswer[questionId],
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedAnswer[questionId] = value;
+                            });
+                          },
+                        ),
+                        Text("Madrid"),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            width: 16,
-          ),
-          Expanded(
-            child: Card(
-              color: Colors.red.shade50,
-              margin: EdgeInsets.symmetric(vertical: 8.0),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: ListTile(
-                title: Text('Quiz ${index * 2 + 2}'),
-                subtitle: Text('Description for Quiz ${index * 2 + 2}'),
-                onTap: () {},
-              ),
-            ),
-          ),
-        ]);
+          ],
+        );
       },
     );
   }
