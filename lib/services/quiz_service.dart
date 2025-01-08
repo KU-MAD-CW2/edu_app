@@ -1,4 +1,5 @@
 import 'package:edu_app/features/quiz/models/quiz.dart';
+import 'package:edu_app/features/quiz/models/quiz_details.dart';
 import 'package:edu_app/utils/request.dart';
 
 class QuizService {
@@ -14,10 +15,10 @@ class QuizService {
     }
   }
 
-  Future<Quiz> getQuiz(int id) async {
+  Future<QuizDetailsModel> getQuiz(int id) async {
     try {
-      final response = await Request().get('/quizzes/$id');
-      final data = Quiz.fromJson(response['data']);
+      final response = await Request().get('/quiz/$id');
+      final data = QuizDetailsModel.fromJson(response['data']);
       return data;
     } catch (e) {
       throw Exception('Failed to load quiz $e');

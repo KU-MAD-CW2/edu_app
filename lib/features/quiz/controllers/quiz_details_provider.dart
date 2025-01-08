@@ -1,13 +1,13 @@
+import 'package:edu_app/features/quiz/models/quiz_details.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:edu_app/features/quiz/models/quiz.dart';
 import 'package:edu_app/services/quiz_service.dart';
 
 final quizDetailsProvider =
-    StateNotifierProvider<QuizDetailsNotifier, Quiz?>((ref) {
+    StateNotifierProvider<QuizDetailsNotifier, QuizDetailsModel?>((ref) {
   return QuizDetailsNotifier();
 });
 
-class QuizDetailsNotifier extends StateNotifier<Quiz?> {
+class QuizDetailsNotifier extends StateNotifier<QuizDetailsModel?> {
   QuizDetailsNotifier() : super(null);
 
   bool _isLoading = false;

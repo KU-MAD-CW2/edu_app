@@ -1,6 +1,6 @@
 import 'package:edu_app/features/quiz/models/question.dart';
 
-class QuizDetails {
+class QuizDetailsModel {
   int id;
   String title;
   String description;
@@ -8,7 +8,7 @@ class QuizDetails {
   String createdAt;
   List<Question> questions;
 
-  QuizDetails({
+  QuizDetailsModel({
     required this.id,
     required this.title,
     required this.description,
@@ -17,8 +17,8 @@ class QuizDetails {
     required this.questions,
   });
 
-  factory QuizDetails.fromJson(Map<String, dynamic> json) {
-    return QuizDetails(
+  factory QuizDetailsModel.fromJson(Map<String, dynamic> json) {
+    return QuizDetailsModel(
       id: json['id'],
       title: json['title'],
       description: json['description'],

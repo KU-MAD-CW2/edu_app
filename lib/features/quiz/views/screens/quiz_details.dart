@@ -2,16 +2,25 @@ import 'package:edu_app/common/layout/app_navigation_bar.dart';
 import 'package:edu_app/common/layout/app_safe_area.dart';
 import 'package:edu_app/features/auth/conrollers/auth_provider.dart';
 import 'package:edu_app/features/quiz/controllers/quiz_details_provider.dart';
+import 'package:edu_app/features/quiz/models/quiz_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:edu_app/features/quiz/models/question.dart';
 
-class QuizDetails extends ConsumerWidget {
+class QuizDetails extends ConsumerStatefulWidget {
   final int quizId;
   const QuizDetails(this.quizId, {super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  _QuizDetailsState createState() => _QuizDetailsState();
+}
+
+class _QuizDetailsState extends ConsumerState<QuizDetails> {
+  Map<int, String> _selectedAnswer = {};
+
+  @override
+  Widget build(BuildContext context) {
     final user = ref.watch(authProvider)?['user'];
     final quizDetails = ref.watch(quizDetailsProvider);
     final QuizDetailsNotifier quizDetailsNotifier =
@@ -19,7 +28,7 @@ class QuizDetails extends ConsumerWidget {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (quizDetails == null) {
-        quizDetailsNotifier.fetchQuiz(quizId);
+        quizDetailsNotifier.fetchQuiz(widget.quizId);
       }
     });
 
@@ -31,7 +40,7 @@ class QuizDetails extends ConsumerWidget {
           padding: const EdgeInsets.all(16.0),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [_quizDetails(quizDetails)]),
+              children: quizDetails == null ? [] : [_quizDetails(quizDetails)]),
         ),
       ),
       bottomNavigationBar: AppNavigationBar(currentIndex: 1),
@@ -90,13 +99,14 @@ class QuizDetails extends ConsumerWidget {
     );
   }
 
-  Widget _quizDetails(quizDetails) {
+  Widget _quizDetails(QuizDetailsModel quizDetails) {
     return ListView.builder(
       shrinkWrap: true,
       physics: ClampingScrollPhysics(),
-      itemCount: 10,
+      itemCount: quizDetails.questions.length,
       itemBuilder: (context, index) {
         int questionId = index + 1;
+        Question question = quizDetails.questions[index];
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -108,63 +118,23 @@ class QuizDetails extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("What is the capital of France?"),
-                    Row(
-                      children: [
-                        Radio<String>(
-                          value: "Paris",
-                          groupValue: _selectedAnswer[questionId],
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedAnswer[questionId] = value;
-                            });
-                          },
-                        ),
-                        Text("Paris"),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Radio<String>(
-                          value: "London",
-                          groupValue: _selectedAnswer[questionId],
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedAnswer[questionId] = value;
-                            });
-                          },
-                        ),
-                        Text("London"),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Radio<String>(
-                          value: "Berlin",
-                          groupValue: _selectedAnswer[questionId],
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedAnswer[questionId] = value;
-                            });
-                          },
-                        ),
-                        Text("Berlin"),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Radio<String>(
-                          value: "Madrid",
-                          groupValue: _selectedAnswer[questionId],
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedAnswer[questionId] = value;
-                            });
-                          },
-                        ),
-                        Text("Madrid"),
-                      ],
-                    ),
+                    Text(question.question),
+                    ...question.answers.map((answer) {
+                      return Row(
+                        children: [
+                          Radio<String>(
+                            value: answer.answer,
+                            groupValue: _selectedAnswer[questionId],
+                            onChanged: (value) {
+                              setState(() {
+                                _selectedAnswer[questionId] = value ?? "";
+                              });
+                            },
+                          ),
+                          Text(answer.answer),
+                        ],
+                      );
+                    }),
                   ],
                 ),
               ),
