@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:edu_app/features/auth/models/user.dart';
 import 'package:edu_app/services/auth_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,7 +40,7 @@ class AuthNotifier extends StateNotifier<Map<String, dynamic>?> {
     if (token != null && user != null) {
       state = {
         'token': token,
-        'user': jsonDecode(user),
+        'user': User.fromJson(jsonDecode(user)),
       };
     } else {
       state = null;
