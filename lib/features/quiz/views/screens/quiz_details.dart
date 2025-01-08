@@ -27,7 +27,8 @@ class _QuizDetailsState extends ConsumerState<QuizDetails> {
         ref.read(quizDetailsProvider.notifier);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (quizDetails == null) {
+      if ((quizDetails != null && quizDetails.id != widget.quizId) ||
+          quizDetails == null) {
         quizDetailsNotifier.fetchQuiz(widget.quizId);
       }
     });
