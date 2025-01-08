@@ -1,6 +1,7 @@
 import 'package:edu_app/features/auth/views/screens/login.dart';
 import 'package:edu_app/features/auth/views/screens/register.dart';
 import 'package:edu_app/features/auth/views/screens/welcome.dart';
+import 'package:edu_app/features/quiz/views/screens/quiz_details.dart';
 import 'package:edu_app/features/quiz/views/screens/quiz_list.dart';
 import 'package:edu_app/features/textbook/models/book.dart';
 import 'package:edu_app/features/textbook/models/chapter.dart';
@@ -56,6 +57,12 @@ GoRoute quizList = GoRoute(
   builder: (context, state) => QuizList(),
 );
 
+GoRoute quizDetails = GoRoute(
+  path: '/quiz-details',
+  name: 'Quiz Details',
+  builder: (context, state) => QuizDetails(),
+);
+
 // Route list
 List<GoRoute> routes = [
   homeRoute,
@@ -64,5 +71,6 @@ List<GoRoute> routes = [
   welcomeRoute,
   quizList,
   bookDetailRoute,
-  chapterDetailRoute
+  chapterDetailRoute,
+  quizDetails
 ];
