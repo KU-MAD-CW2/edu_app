@@ -36,51 +36,46 @@ class RegisterForm extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Wrap(children: [
-            TextInputField('Name', "Ex. John Doe", onChanged: (value) {
-              ref
-                  .read(formValuesProvider.notifier)
-                  .update((state) => {...state, 'name': value});
-            }),
-            SizedBox(height: 20),
-            TextInputField("Email", 'example@gmail.com', onChanged: (value) {
-              ref
-                  .read(formValuesProvider.notifier)
-                  .update((state) => {...state, 'email': value});
-            }),
-            SizedBox(height: 20),
-            PasswordInputField("Password", '*********', isPasswordVisible,
-                isPasswordVisibleProvider, onChanged: (value) {
-              ref.read(formValuesProvider.notifier).update((state) => {
-                    ...state,
-                    'password': value,
-                    'password_confirmation': value
-                  });
-            }),
-            SizedBox(height: 20),
-            TermsInputField(isTermsAccepted, isTermsAcceptedProvider),
-            SizedBox(height: 20),
-            PrimaryButton("Sign Up", onPressed: () async {
-              if (_formKey.currentState!.validate() && isTermsAccepted) {
-                // Handle Sign Up
-                try {
-                  final response = await AuthService.register(formValues);
-                  if (response['message'] == "Success") {
-                    context.replaceNamed(loginRoute.name as String);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Registration successful!")),
-                    );
-                  }
-                } catch (e) {
+          TextInputField('Name', "Ex. John Doe", onChanged: (value) {
+            ref
+                .read(formValuesProvider.notifier)
+                .update((state) => {...state, 'name': value});
+          }),
+          SizedBox(height: 20),
+          TextInputField("Email", 'example@gmail.com', onChanged: (value) {
+            ref
+                .read(formValuesProvider.notifier)
+                .update((state) => {...state, 'email': value});
+          }),
+          SizedBox(height: 20),
+          PasswordInputField("Password", '*********', isPasswordVisible,
+              isPasswordVisibleProvider, onChanged: (value) {
+            ref.read(formValuesProvider.notifier).update((state) =>
+                {...state, 'password': value, 'password_confirmation': value});
+          }),
+          SizedBox(height: 20),
+          TermsInputField(isTermsAccepted, isTermsAcceptedProvider),
+          SizedBox(height: 20),
+          PrimaryButton("Sign Up", onPressed: () async {
+            if (_formKey.currentState!.validate() && isTermsAccepted) {
+              // Handle Sign Up
+              try {
+                final response = await AuthService.register(formValues);
+                if (response['message'] == "Success") {
+                  context.replaceNamed(loginRoute.name as String);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Registration failed! $e")),
+                    SnackBar(content: Text("Registration successful!")),
                   );
                 }
+              } catch (e) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("Registration failed! $e")),
+                );
               }
-            }),
-            SizedBox(height: 40),
-            _handleLogin(context),
-          ])
+            }
+          }),
+          SizedBox(height: 40),
+          _handleLogin(context),
         ],
       ),
     );

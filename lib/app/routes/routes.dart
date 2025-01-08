@@ -2,7 +2,10 @@ import 'package:edu_app/features/auth/views/screens/login.dart';
 import 'package:edu_app/features/auth/views/screens/register.dart';
 import 'package:edu_app/features/auth/views/screens/welcome.dart';
 import 'package:edu_app/features/quiz/views/screens/quiz_list.dart';
+import 'package:edu_app/features/textbook/models/book.dart';
+import 'package:edu_app/features/textbook/models/chapter.dart';
 import 'package:edu_app/features/textbook/views/screens/book_details.dart';
+import 'package:edu_app/features/textbook/views/screens/book_reading.dart';
 import 'package:edu_app/features/textbook/views/screens/home.dart';
 import 'package:go_router/go_router.dart';
 
@@ -33,7 +36,18 @@ GoRoute homeRoute = GoRoute(
 GoRoute bookDetailRoute = GoRoute(
   path: '/books/detail',
   name: 'BookDetail',
-  builder: (context, state) => BookDetailsScreen(),
+  builder: (context, state) => BookDetailsScreen(state.extra as Book),
+);
+
+GoRoute chapterDetailRoute = GoRoute(
+  path: '/chapter/detail',
+  name: 'ChapterDetail',
+  builder: (context, state) {
+    Map<String, dynamic> args = state.extra as Map<String, dynamic>;
+    Book book = args['book'];
+    Chapter chapter = args['chapter'];
+    return ChapterReaderScreen(book, chapter);
+  },
 );
 
 GoRoute quizList = GoRoute(
@@ -49,4 +63,6 @@ List<GoRoute> routes = [
   loginRoute,
   welcomeRoute,
   quizList
+  bookDetailRoute,
+  chapterDetailRoute
 ];

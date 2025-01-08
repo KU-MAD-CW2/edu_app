@@ -36,6 +36,7 @@ class AppTheme {
           surfaceTintColor: Colors.grey.shade100,
           labelStyle: lightTextTheme.bodyMedium?.copyWith(
             color: Colors.grey.shade800,
+            overflow: TextOverflow.visible,
           )),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
