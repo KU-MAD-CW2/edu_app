@@ -1,6 +1,7 @@
 import 'package:edu_app/features/auth/views/screens/login.dart';
 import 'package:edu_app/features/auth/views/screens/register.dart';
 import 'package:edu_app/features/auth/views/screens/welcome.dart';
+import 'package:edu_app/features/quiz/views/screens/quiz_details.dart';
 import 'package:edu_app/features/quiz/views/screens/quiz_list.dart';
 import 'package:edu_app/features/textbook/models/book.dart';
 import 'package:edu_app/features/textbook/models/chapter.dart';
@@ -69,6 +70,12 @@ GoRoute bookListRoute = GoRoute(
       _buildPageWithAnimation(state, BookListView()),
 );
 
+GoRoute quizDetails = GoRoute(
+  path: '/quiz-details',
+  name: 'Quiz Details',
+  builder: (context, state) => QuizDetails(),
+);
+
 // Route list
 List<GoRoute> routes = [
   homeRoute,
@@ -78,7 +85,8 @@ List<GoRoute> routes = [
   quizList,
   bookDetailRoute,
   bookListRoute,
-  chapterDetailRoute
+  chapterDetailRoute,
+  quizDetails
 ];
 
 Page<dynamic> _buildPageWithAnimation(GoRouterState state, Widget child) {

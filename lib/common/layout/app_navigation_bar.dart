@@ -81,11 +81,11 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
             ),
             BottomNavigationBarItem(
               icon: HugeIcon(
-                icon: HugeIcons.strokeRoundedDiscoverSquare,
+                icon: HugeIcons.strokeRoundedQuiz02,
                 color: _selectedIndex == 1 ? Colors.red : Colors.grey,
                 size: 30.0,
               ),
-              label: 'Discover',
+              label: 'Quiz',
             ),
             BottomNavigationBarItem(
               icon: HugeIcon(
