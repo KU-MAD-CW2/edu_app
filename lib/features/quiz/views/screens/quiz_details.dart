@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:edu_app/common/layout/app_navigation_bar.dart';
 import 'package:edu_app/common/layout/app_safe_area.dart';
+import 'package:edu_app/features/auth/conrollers/auth_provider.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:edu_app/features/auth/conrollers/auth_provider.dart';
 
 class QuizDetails extends ConsumerWidget {
   const QuizDetails({super.key});
@@ -22,7 +22,7 @@ class QuizDetails extends ConsumerWidget {
               children: [_quizList()]),
         ),
       ),
-      bottomNavigationBar: AppNavigationBar(),
+      bottomNavigationBar: AppNavigationBar(currentIndex: 1),
     ));
   }
 
