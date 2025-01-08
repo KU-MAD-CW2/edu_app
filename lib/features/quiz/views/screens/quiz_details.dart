@@ -2,11 +2,13 @@ import 'package:edu_app/common/layout/app_navigation_bar.dart';
 import 'package:edu_app/common/layout/app_safe_area.dart';
 import 'package:edu_app/features/auth/conrollers/auth_provider.dart';
 import 'package:edu_app/features/quiz/controllers/quiz_details_provider.dart';
+import 'package:edu_app/features/quiz/models/answer.dart';
 import 'package:edu_app/features/quiz/models/quiz_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:edu_app/features/quiz/models/question.dart';
+import 'package:edu_app/common/fields/primary_button.dart';
 
 class QuizDetails extends ConsumerStatefulWidget {
   final int quizId;
@@ -27,7 +29,8 @@ class _QuizDetailsState extends ConsumerState<QuizDetails> {
         ref.read(quizDetailsProvider.notifier);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (quizDetails == null) {
+      if ((quizDetails != null && quizDetails.id != widget.quizId) ||
+          quizDetails == null) {
         quizDetailsNotifier.fetchQuiz(widget.quizId);
       }
     });
@@ -40,7 +43,17 @@ class _QuizDetailsState extends ConsumerState<QuizDetails> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: quizDetails == null ? [] : [_quizDetails(quizDetails)]),
+              children: quizDetailsNotifier.isLoading()
+                  ? [
+                      const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    ]
+                  : [
+                      quizDetails == null
+                          ? const SizedBox.shrink()
+                          : _quizDetails(quizDetails)
+                    ]),
         ),
       ),
       bottomNavigationBar: AppNavigationBar(currentIndex: 1),
@@ -100,48 +113,74 @@ class _QuizDetailsState extends ConsumerState<QuizDetails> {
   }
 
   Widget _quizDetails(QuizDetailsModel quizDetails) {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: ClampingScrollPhysics(),
-      itemCount: quizDetails.questions.length,
-      itemBuilder: (context, index) {
-        int questionId = index + 1;
-        Question question = quizDetails.questions[index];
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 8),
-            Card(
-              color: Colors.red.shade50,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(question.question),
-                    ...question.answers.map((answer) {
-                      return Row(
-                        children: [
-                          Radio<String>(
-                            value: answer.answer,
-                            groupValue: _selectedAnswer[questionId],
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedAnswer[questionId] = value ?? "";
-                              });
-                            },
-                          ),
-                          Text(answer.answer),
-                        ],
-                      );
-                    }),
-                  ],
+    return Column(
+      children: [
+        ListView.builder(
+          shrinkWrap: true,
+          physics: ClampingScrollPhysics(),
+          itemCount: quizDetails.questions.length,
+          itemBuilder: (context, index) {
+            int questionId = index + 1;
+            Question question = quizDetails.questions[index];
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 8),
+                Card(
+                  color: Colors.red.shade50,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(question.question),
+                        ...question.answers.map((answer) {
+                          return Row(
+                            children: [
+                              Radio<String>(
+                                value: answer.id.toString(),
+                                groupValue: _selectedAnswer[questionId],
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedAnswer[questionId] = value ?? "";
+                                  });
+                                },
+                              ),
+                              Text(answer.answer),
+                            ],
+                          );
+                        }),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ],
-        );
-      },
+              ],
+            );
+          },
+        ),
+        SizedBox(height: 8),
+        PrimaryButton("Show Results", onPressed: () {
+          int correctAnswers = 0;
+          for (int i = 0; i < quizDetails.questions.length; i++) {
+            Question question = quizDetails.questions[i];
+            Answer correctAnswer =
+                question.answers.firstWhere((answer) => answer.isCorrect);
+            if (_selectedAnswer[i + 1] == correctAnswer.id.toString()) {
+              correctAnswers++;
+            }
+          }
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text("Your Score"),
+                content: Text(
+                    "You scored $correctAnswers out of ${quizDetails.questions.length} marks"),
+              );
+            },
+          );
+        }),
+      ],
     );
   }
 }
