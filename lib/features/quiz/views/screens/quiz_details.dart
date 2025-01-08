@@ -2,6 +2,7 @@ import 'package:edu_app/common/layout/app_navigation_bar.dart';
 import 'package:edu_app/common/layout/app_safe_area.dart';
 import 'package:edu_app/features/auth/conrollers/auth_provider.dart';
 import 'package:edu_app/features/quiz/controllers/quiz_details_provider.dart';
+import 'package:edu_app/features/quiz/models/answer.dart';
 import 'package:edu_app/features/quiz/models/quiz_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -158,7 +159,27 @@ class _QuizDetailsState extends ConsumerState<QuizDetails> {
           },
         ),
         SizedBox(height: 8),
-        PrimaryButton("Show Results", onPressed: () => {}),
+        PrimaryButton("Show Results", onPressed: () {
+          int correctAnswers = 0;
+          for (int i = 0; i < quizDetails.questions.length; i++) {
+            Question question = quizDetails.questions[i];
+            Answer correctAnswer =
+                question.answers.firstWhere((answer) => answer.isCorrect);
+            if (_selectedAnswer[i + 1] == correctAnswer.answer) {
+              correctAnswers++;
+            }
+          }
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text("Your Score"),
+                content: Text(
+                    "You scored $correctAnswers out of ${quizDetails.questions.length} marks"),
+              );
+            },
+          );
+        }),
       ],
     );
   }
