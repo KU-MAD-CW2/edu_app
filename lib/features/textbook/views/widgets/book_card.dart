@@ -15,7 +15,7 @@ class BookCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final imageUrl = dotenv.get('IMAGE_URL');
 
-    double? scalePercentage = scale ?? 0.38;
+    double? scalePercentage = scale ?? 0.35;
     double width = (MediaQuery.of(context).size.width * scalePercentage);
 
     return GestureDetector(

@@ -48,7 +48,7 @@ class _LatestBookSectionState extends ConsumerState<LatestBookSection> {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
+                  padding: const EdgeInsets.only(top: 16, bottom: 12),
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
