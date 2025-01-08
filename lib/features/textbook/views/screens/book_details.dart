@@ -19,9 +19,7 @@ class BookDetailsScreen extends ConsumerWidget {
     final bookItem = ref.watch(bookDetailProvider);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (bookItem == null) {
-        ref.read(bookDetailProvider.notifier).getBook(book.id);
-      }
+      ref.read(bookDetailProvider.notifier).getBook(book.id);
     });
 
     return AppSafeArea(

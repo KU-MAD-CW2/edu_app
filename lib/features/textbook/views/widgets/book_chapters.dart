@@ -1,6 +1,8 @@
+import 'package:edu_app/app/routes/routes.dart';
 import 'package:edu_app/features/textbook/models/book.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class BookChapters extends ConsumerWidget {
   final Book book;
@@ -42,7 +44,11 @@ class BookChapters extends ConsumerWidget {
                     subtitle: Text('Chapter ${index + 1}'),
                     onTap: index == 0
                         ? () {
-                            // Add navigation to chapter details
+                            context.pushNamed(chapterDetailRoute.name as String,
+                                extra: {
+                                  'book': book,
+                                  'chapter': book.chapters[index],
+                                });
                           }
                         : null,
                   ),
