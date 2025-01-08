@@ -20,7 +20,7 @@ class BookCard extends ConsumerWidget {
 
     return GestureDetector(
       onTap: () {
-        context.pushNamed(bookDetailRoute.name as String, extra: book);
+        context.goNamed(bookDetailRoute.name as String, extra: book);
       },
       child: Container(
         width: width,

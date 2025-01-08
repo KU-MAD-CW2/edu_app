@@ -1,6 +1,7 @@
 import 'package:edu_app/features/auth/views/screens/login.dart';
 import 'package:edu_app/features/auth/views/screens/register.dart';
 import 'package:edu_app/features/auth/views/screens/welcome.dart';
+import 'package:edu_app/features/textbook/models/book.dart';
 import 'package:edu_app/features/textbook/views/screens/book_details.dart';
 import 'package:edu_app/features/textbook/views/screens/home.dart';
 import 'package:go_router/go_router.dart';
@@ -32,7 +33,7 @@ GoRoute homeRoute = GoRoute(
 GoRoute bookDetailRoute = GoRoute(
   path: '/books/detail',
   name: 'BookDetail',
-  builder: (context, state) => BookDetailsScreen(),
+  builder: (context, state) => BookDetailsScreen(state.extra as Book),
 );
 
 // Route list

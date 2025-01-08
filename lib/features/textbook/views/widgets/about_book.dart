@@ -1,7 +1,10 @@
+import 'package:edu_app/features/textbook/models/book.dart';
 import 'package:flutter/material.dart';
 
 class AboutBook extends StatelessWidget {
-  const AboutBook({
+  final Book book;
+  const AboutBook(
+    this.book, {
     super.key,
   });
 
@@ -18,7 +21,7 @@ class AboutBook extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Text(
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Read more.',
+            book.title,
             style: TextStyle(
               fontSize: 14,
               color: Colors.grey[700],
@@ -37,7 +40,7 @@ class AboutBook extends StatelessWidget {
               ),
               SizedBox(width: 10),
               Text(
-                'Jenny M. Wilson',
+                book.user!.name,
                 style: TextStyle(
                   fontSize: 16,
                 ),
@@ -64,7 +67,7 @@ class AboutBook extends StatelessWidget {
                 width: 20,
               ),
               Text(
-                'ISBN-13',
+                'ISBN-${book.id}',
                 style: TextStyle(
                   fontSize: 14,
                   color: Colors.grey[700],
@@ -87,7 +90,7 @@ class AboutBook extends StatelessWidget {
                 width: 20,
               ),
               Text(
-                'Novel',
+                book.categories.map((category) => category.name).join(', '),
                 style: TextStyle(
                   fontSize: 14,
                   color: Colors.grey[700],

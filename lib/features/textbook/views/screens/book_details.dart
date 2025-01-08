@@ -1,14 +1,29 @@
+import 'package:edu_app/app/routes/routes.dart';
 import 'package:edu_app/common/layout/app_safe_area.dart';
+import 'package:edu_app/features/textbook/controllers/book_detail_provider.dart';
+import 'package:edu_app/features/textbook/models/book.dart';
 import 'package:edu_app/features/textbook/views/widgets/about_book.dart';
 import 'package:edu_app/features/textbook/views/widgets/book_chapters.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class BookDetailsScreen extends ConsumerWidget {
-  const BookDetailsScreen({super.key});
+  final Book book;
+
+  const BookDetailsScreen(this.book, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final bookItem = ref.watch(bookDetailProvider);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (bookItem == null) {
+        ref.read(bookDetailProvider.notifier).getBook(book.id);
+      }
+    });
+
     return AppSafeArea(
         appBarColor: Colors.grey.shade100,
         child: Scaffold(
@@ -19,7 +34,7 @@ class BookDetailsScreen extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildBookCover(context),
+                    _buildBookCover(context, book.cover_image),
                     SizedBox(height: 125),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
@@ -27,10 +42,10 @@ class BookDetailsScreen extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(height: 16),
-                          _buildBookTitle(context),
+                          _buildBookTitle(context, book),
                           SizedBox(height: 24),
                           DefaultTabController(
-                            length: 3,
+                            length: 2,
                             child: Column(
                               children: [
                                 TabBar(
@@ -45,7 +60,7 @@ class BookDetailsScreen extends ConsumerWidget {
                                   tabs: [
                                     Tab(text: 'About'),
                                     Tab(text: 'Chapters'),
-                                    Tab(text: 'Reviews'),
+                                    // Tab(text: 'Reviews'),
                                   ],
                                 ),
                                 SizedBox(
@@ -53,11 +68,13 @@ class BookDetailsScreen extends ConsumerWidget {
                                       MediaQuery.of(context).size.height * 0.35,
                                   child: TabBarView(
                                     children: [
-                                      AboutBook(),
-                                      BookChapters(), // Placeholder
-                                      Center(
-                                          child:
-                                              Text('Reviews')), // Placeholder
+                                      AboutBook(book),
+                                      bookItem != null
+                                          ? BookChapters(bookItem)
+                                          : BookChapters(book), // Placeholder
+                                      // Center(
+                                      //     child:
+                                      //         Text('Reviews')), // Placeholder
                                     ],
                                   ),
                                 ),
@@ -75,11 +92,11 @@ class BookDetailsScreen extends ConsumerWidget {
         ));
   }
 
-  Center _buildBookTitle(BuildContext context) {
+  Center _buildBookTitle(BuildContext context, Book book) {
     return Center(
       child: Column(
         children: [
-          Text('The Great Gatsby',
+          Text(book.title,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -88,7 +105,7 @@ class BookDetailsScreen extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Robert U. Fox',
+                book.user!.name,
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.grey[700],
@@ -107,7 +124,8 @@ class BookDetailsScreen extends ConsumerWidget {
     );
   }
 
-  Stack _buildBookCover(BuildContext context) {
+  Stack _buildBookCover(BuildContext context, String coverImage) {
+    String pathPrefix = dotenv.get('IMAGE_URL');
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -132,7 +150,7 @@ class BookDetailsScreen extends ConsumerWidget {
                 ),
               ],
               image: DecorationImage(
-                image: AssetImage('assets/images/book-1.jpg'),
+                image: NetworkImage(pathPrefix + coverImage),
                 fit: BoxFit.cover,
               ),
             ),
@@ -150,7 +168,7 @@ class BookDetailsScreen extends ConsumerWidget {
       backgroundColor: Colors.grey.shade100,
       leading: IconButton(
         icon: Icon(Icons.arrow_back),
-        onPressed: () => Navigator.of(context).pop(),
+        onPressed: () => context.goNamed(homeRoute.name as String),
       ),
       actions: [
         IconButton(

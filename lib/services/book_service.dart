@@ -25,4 +25,13 @@ class BookService {
       throw Exception('Failed to fetch featured books: $e');
     }
   }
+
+  Future<Book> getBook(int bookId) async {
+    try {
+      final response = await Request().get('/books/$bookId');
+      return Book.fromMap(response['data']);
+    } catch (e) {
+      throw Exception('Failed to fetch book: $e');
+    }
+  }
 }
