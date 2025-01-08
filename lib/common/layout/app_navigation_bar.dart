@@ -1,8 +1,15 @@
+import 'package:edu_app/app/routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 
 class AppNavigationBar extends StatefulWidget {
-  const AppNavigationBar({super.key});
+  final int currentIndex;
+
+  const AppNavigationBar({
+    super.key,
+    required this.currentIndex,
+  });
 
   @override
   _AppNavigationBarState createState() => _AppNavigationBarState();
@@ -11,10 +18,25 @@ class AppNavigationBar extends StatefulWidget {
 class _AppNavigationBarState extends State<AppNavigationBar> {
   int _selectedIndex = 0;
 
+  Map<int, GoRoute> routes = {
+    0: homeRoute,
+    1: quizList,
+    2: homeRoute,
+    3: bookListRoute,
+    4: homeRoute
+  };
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.currentIndex;
+  }
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+    context.replaceNamed(routes[index]?.name as String);
   }
 
   @override

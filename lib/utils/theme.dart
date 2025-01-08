@@ -9,48 +9,49 @@ class AppTheme {
   }
 
   static ThemeData lightTheme = ThemeData(
-      useMaterial3: true,
-      canvasColor: Colors.white,
-      scaffoldBackgroundColor: Colors.white,
-      brightness: Brightness.light,
-      textTheme: lightTextTheme,
-      primaryColor: primaryColor,
-      secondaryHeaderColor: Colors.grey.shade300,
-      splashColor: Colors.transparent,
-      appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.white,
-      ),
-      navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: Colors.white,
-        indicatorColor: Colors.grey.shade300,
-        labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-      ),
-      cardTheme: CardTheme(
-          color: Colors.grey.shade100, shadowColor: Colors.white, elevation: 0),
-      chipTheme: ChipThemeData(
-          shape: StadiumBorder(
-            side: BorderSide(color: Colors.grey.shade100),
-          ),
-          backgroundColor: Colors.grey.shade100,
-          surfaceTintColor: Colors.grey.shade100,
-          labelStyle: lightTextTheme.bodyMedium?.copyWith(
-            color: Colors.grey.shade800,
-            overflow: TextOverflow.visible,
-          )),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: primaryColor.shade500,
-          textStyle: lightTextTheme.bodyLarge?.copyWith(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+    useMaterial3: true,
+    canvasColor: Colors.white,
+    scaffoldBackgroundColor: Colors.white,
+    brightness: Brightness.light,
+    textTheme: lightTextTheme,
+    primaryColor: primaryColor,
+    secondaryHeaderColor: Colors.grey.shade300,
+    splashColor: Colors.transparent,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.white,
+    ),
+    navigationBarTheme: NavigationBarThemeData(
+      backgroundColor: Colors.white,
+      indicatorColor: Colors.grey.shade300,
+      labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+    ),
+    cardTheme: CardTheme(
+        color: Colors.grey.shade100, shadowColor: Colors.white, elevation: 0),
+    chipTheme: ChipThemeData(
+        shape: StadiumBorder(
+          side: BorderSide(color: Colors.grey.shade100),
         ),
+        backgroundColor: Colors.grey.shade100,
+        surfaceTintColor: Colors.grey.shade100,
+        labelStyle: lightTextTheme.bodyMedium?.copyWith(
+          color: Colors.grey.shade800,
+          overflow: TextOverflow.visible,
+        )),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: primaryColor.shade500,
+        textStyle: lightTextTheme.bodyLarge?.copyWith(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       ),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
-          backgroundColor: primaryColor.shade500));
+    ),
+    floatingActionButtonTheme:
+        FloatingActionButtonThemeData(backgroundColor: primaryColor.shade500),
+  );
 
   static ThemeData darkTheme = ThemeData(
       useMaterial3: true,
