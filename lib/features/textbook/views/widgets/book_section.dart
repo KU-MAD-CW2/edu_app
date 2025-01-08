@@ -86,11 +86,7 @@ class _LatestBookSectionState extends ConsumerState<LatestBookSection> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: latestBooks
-                          .map((book) => BookCard(
-                                book.title,
-                                book.user!.name,
-                                book.cover_image,
-                              ))
+                          .map((book) => BookCard(book, null))
                           .toList(),
                     ),
                   ),

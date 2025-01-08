@@ -81,11 +81,7 @@ class _FeaturedBookSectionState extends ConsumerState<FeaturedBookSection> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: featuredBooks
-                          .map((book) => BookCard(
-                                book.title,
-                                book.user!.name,
-                                book.cover_image,
-                              ))
+                          .map((book) => BookCard(book, null))
                           .toList(),
                     ),
                   ),
