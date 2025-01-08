@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:edu_app/features/quiz/models/question.dart';
+import 'package:edu_app/common/fields/primary_button.dart';
 
 class QuizDetails extends ConsumerStatefulWidget {
   final int quizId;
@@ -111,48 +112,54 @@ class _QuizDetailsState extends ConsumerState<QuizDetails> {
   }
 
   Widget _quizDetails(QuizDetailsModel quizDetails) {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: ClampingScrollPhysics(),
-      itemCount: quizDetails.questions.length,
-      itemBuilder: (context, index) {
-        int questionId = index + 1;
-        Question question = quizDetails.questions[index];
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 8),
-            Card(
-              color: Colors.red.shade50,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(question.question),
-                    ...question.answers.map((answer) {
-                      return Row(
-                        children: [
-                          Radio<String>(
-                            value: answer.answer,
-                            groupValue: _selectedAnswer[questionId],
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedAnswer[questionId] = value ?? "";
-                              });
-                            },
-                          ),
-                          Text(answer.answer),
-                        ],
-                      );
-                    }),
-                  ],
+    return Column(
+      children: [
+        ListView.builder(
+          shrinkWrap: true,
+          physics: ClampingScrollPhysics(),
+          itemCount: quizDetails.questions.length,
+          itemBuilder: (context, index) {
+            int questionId = index + 1;
+            Question question = quizDetails.questions[index];
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 8),
+                Card(
+                  color: Colors.red.shade50,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(question.question),
+                        ...question.answers.map((answer) {
+                          return Row(
+                            children: [
+                              Radio<String>(
+                                value: answer.answer,
+                                groupValue: _selectedAnswer[questionId],
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedAnswer[questionId] = value ?? "";
+                                  });
+                                },
+                              ),
+                              Text(answer.answer),
+                            ],
+                          );
+                        }),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ],
-        );
-      },
+              ],
+            );
+          },
+        ),
+        SizedBox(height: 8),
+        PrimaryButton("Show Results", onPressed: () => {}),
+      ],
     );
   }
 }
