@@ -84,18 +84,39 @@ class QuizList extends ConsumerWidget {
       physics: ClampingScrollPhysics(),
       itemCount: 15,
       itemBuilder: (context, index) {
-        return Card(
-          margin: EdgeInsets.symmetric(vertical: 8.0),
-          child: ListTile(
-            leading: Icon(Icons.quiz),
-            title: Text('Quiz ${index + 1}'),
-            subtitle: Text('Description for Quiz ${index + 1}'),
-            trailing: Icon(Icons.arrow_forward),
-            onTap: () {
-              // Handle card tap
-            },
+        return Row(children: [
+          Expanded(
+            child: Card(
+              color: Colors.red.shade50,
+              margin: EdgeInsets.symmetric(vertical: 8.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: ListTile(
+                title: Text('Quiz ${index * 2 + 1}'),
+                subtitle: Text('Description for Quiz ${index * 2 + 1}'),
+                onTap: () {},
+              ),
+            ),
           ),
-        );
+          SizedBox(
+            width: 16,
+          ),
+          Expanded(
+            child: Card(
+              color: Colors.red.shade50,
+              margin: EdgeInsets.symmetric(vertical: 8.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: ListTile(
+                title: Text('Quiz ${index * 2 + 2}'),
+                subtitle: Text('Description for Quiz ${index * 2 + 2}'),
+                onTap: () {},
+              ),
+            ),
+          ),
+        ]);
       },
     );
   }
