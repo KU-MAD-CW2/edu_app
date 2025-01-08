@@ -34,4 +34,16 @@ class BookService {
       throw Exception('Failed to fetch book: $e');
     }
   }
+
+  Future<List<Book>> search(
+      {String search = '', int page = 1, sortBy = 'asc'}) async {
+    try {
+      String path = '/search-books?search=$search&page=$page';
+      final response = await Request().get(path);
+      final data = response['data'] as List;
+      return data.map((json) => Book.fromMap(json)).toList();
+    } catch (e) {
+      throw Exception('Failed to fetch featured books: $e');
+    }
+  }
 }
