@@ -14,13 +14,13 @@ class QuizService {
     }
   }
 
-  // Future<Quiz> getQuiz(int id) async {
-  //   final response = await Request.get('/quizzes/$id');
-
-  //   if (response.statusCode == 200) {
-  //     return Quiz.fromJson(response.json());
-  //   } else {
-  //     throw Exception('Failed to load quiz');
-  //   }
-  // }
+  Future<Quiz> getQuiz(int id) async {
+    try {
+      final response = await Request().get('/quizzes/$id');
+      final data = Quiz.fromJson(response['data']);
+      return data;
+    } catch (e) {
+      throw Exception('Failed to load quiz $e');
+    }
+  }
 }

@@ -2,26 +2,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:edu_app/features/quiz/models/quiz.dart';
 import 'package:edu_app/services/quiz_service.dart';
 
-final quizNotifierProvider =
-    StateNotifierProvider<QuizNotifier, List<Quiz>>((ref) {
-  return QuizNotifier();
+final quizDetailsProvider =
+    StateNotifierProvider<QuizDetailsNotifier, Quiz?>((ref) {
+  return QuizDetailsNotifier();
 });
 
-class QuizNotifier extends StateNotifier<List<Quiz>> {
-  QuizNotifier() : super([]);
+class QuizDetailsNotifier extends StateNotifier<Quiz?> {
+  QuizDetailsNotifier() : super(null);
 
   bool _isLoading = false;
   bool isLoading() => _isLoading;
 
-  Future<void> fetchQuizzes() async {
+  Future<void> fetchQuiz(int id) async {
     if (_isLoading) return;
     _isLoading = true;
-    state = [];
     try {
-      List<Quiz> response = await QuizService().getQuizzes();
+      final response = await QuizService().getQuiz(id);
       state = response;
     } catch (e) {
-      throw Exception('Failed to fetch quizzes: $e');
+      throw Exception('Failed to fetch quiz: $e');
     } finally {
       _isLoading = false;
     }
