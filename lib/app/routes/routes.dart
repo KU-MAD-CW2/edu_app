@@ -62,7 +62,7 @@ List<GoRoute> routes = [
   registerRoute,
   loginRoute,
   welcomeRoute,
-  quizList
+  quizList,
   bookDetailRoute,
   chapterDetailRoute
 ];
