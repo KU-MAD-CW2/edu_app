@@ -96,9 +96,9 @@ class _QuizDetailsState extends ConsumerState<QuizDetails> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Question $questionId"),
             SizedBox(height: 8),
             Card(
+              color: Colors.red.shade50,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
