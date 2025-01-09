@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hugeicons/hugeicons.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final String name;
@@ -42,19 +41,6 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
               ),
             ],
           )),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.only(right: 10),
-          child: IconButton(
-            icon: HugeIcon(
-              icon: HugeIcons.strokeRoundedSearch01,
-              color: Colors.black,
-              size: 25.0,
-            ),
-            onPressed: () {},
-          ),
-        ),
-      ],
     );
   }
 
