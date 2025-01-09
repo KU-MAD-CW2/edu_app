@@ -1,3 +1,4 @@
+import 'package:edu_app/app/routes/routes.dart';
 import 'package:edu_app/common/layout/app_navigation_bar.dart';
 import 'package:edu_app/common/layout/app_safe_area.dart';
 import 'package:edu_app/features/auth/conrollers/auth_provider.dart';
@@ -5,6 +6,7 @@ import 'package:edu_app/features/textbook/views/widgets/book_section.dart';
 import 'package:edu_app/features/textbook/views/widgets/featured_book_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -85,7 +87,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               color: Colors.black,
               size: 25.0,
             ),
-            onPressed: () {},
+            onPressed: () {
+              context.replaceNamed(bookListRoute.name as String);
+            },
           ),
         ),
       ],
