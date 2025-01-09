@@ -42,6 +42,16 @@ class _BookmarkListState extends ConsumerState<BookmarkList> {
               ],
             ),
           ),
+          if (bookMarks.isEmpty)
+            SizedBox(
+              height: 200,
+              child: Center(
+                child: Text(
+                  'No book saved yet',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+            ),
           Expanded(
             child: ListView.builder(
               itemCount: bookMarks.length,
@@ -67,18 +77,19 @@ class _BookmarkListState extends ConsumerState<BookmarkList> {
                     child: ListTile(
                       leading: Image.network(
                         pathPrefix + book.cover_image,
-                        width: 80,
-                        height: 120,
                       ),
-                      title: Text(book.title),
+                      title: Text(book.title,
+                          style: Theme.of(context).textTheme.titleMedium),
                       subtitle: Text(book.user!.name),
                       trailing: IconButton(
-                        icon: Icon(Icons.delete),
+                        icon: Icon(Icons.bookmark,
+                            color: Theme.of(context).primaryColor),
                         onPressed: () {
                           bookmarksNotifier.removeBook(book);
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text('Removed ${book.title}'),
+                              content:
+                                  Text('${book.title} removed from bookmark'),
                             ),
                           );
                         },

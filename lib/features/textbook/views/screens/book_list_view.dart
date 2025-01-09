@@ -58,7 +58,7 @@ class _BookListViewState extends ConsumerState<BookListView> {
               ],
             ),
           )),
-      bottomNavigationBar: AppNavigationBar(currentIndex: 3),
+      bottomNavigationBar: AppNavigationBar(currentIndex: 2),
     ));
   }
 
@@ -123,7 +123,7 @@ class _BookListViewState extends ConsumerState<BookListView> {
           ),
           const SizedBox(height: 10),
           Expanded(
-            child: searchNotifier.isLoading
+            child: searchResults.isEmpty && searchNotifier.isLoading
                 ? Center(child: CircularProgressIndicator())
                 : GridView.builder(
                     gridDelegate:
