@@ -30,6 +30,26 @@ class QuizList extends ConsumerWidget {
           padding: const EdgeInsets.all(16.0),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Search',
+                labelStyle: const TextStyle(color: Colors.black),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: const BorderSide(color: Colors.black),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: const BorderSide(color: Colors.black),
+                ),
+                suffixIcon: const Icon(Icons.search, color: Colors.black),
+              ),
+              style: const TextStyle(color: Colors.black),
+              onChanged: (value) {
+                // quizNotifier.search(value);
+              },
+            ),
+            SizedBox(height: 16),
             quizzes.isEmpty
                 ? const Center(
                     child: CircularProgressIndicator(
