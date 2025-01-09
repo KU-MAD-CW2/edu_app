@@ -22,7 +22,7 @@ class BookDetailsScreen extends ConsumerWidget {
     final bookmarkNotifier = ref.watch(bookmarkProvider.notifier);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (bookItem == null) {
+      if (bookItem == null || bookItem.id != book.id) {
         ref.read(bookDetailProvider.notifier).getBook(book.id);
         bookmarkNotifier.loadBookmarks();
       }
