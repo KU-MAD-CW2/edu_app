@@ -1,9 +1,11 @@
+import 'package:edu_app/app/routes/routes.dart';
 import 'package:edu_app/common/layout/app_navigation_bar.dart';
 import 'package:edu_app/common/layout/app_safe_area.dart';
 import 'package:edu_app/features/textbook/controllers/bookmark_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class BookmarkList extends ConsumerStatefulWidget {
   const BookmarkList({super.key});
@@ -46,35 +48,41 @@ class _BookmarkListState extends ConsumerState<BookmarkList> {
               itemBuilder: (context, index) {
                 final book = bookMarks[index];
                 String pathPrefix = dotenv.get('IMAGE_URL');
-                return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    shape: BoxShape.rectangle,
-                    border: Border.all(color: Colors.grey.shade300),
-                  ),
-                  margin: EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 8.0,
-                  ),
-                  padding: EdgeInsets.all(16.0),
-                  child: ListTile(
-                    leading: Image.network(
-                      pathPrefix + book.cover_image,
-                      width: 80,
-                      height: 120,
+                return GestureDetector(
+                  onTap: () {
+                    context.goNamed(bookDetailRoute.name as String,
+                        extra: book);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12.0),
+                      shape: BoxShape.rectangle,
+                      border: Border.all(color: Colors.grey.shade300),
                     ),
-                    title: Text(book.title),
-                    subtitle: Text(book.user!.name),
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () {
-                        bookmarksNotifier.removeBook(book);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Removed ${book.title}'),
-                          ),
-                        );
-                      },
+                    margin: EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 8.0,
+                    ),
+                    padding: EdgeInsets.all(16.0),
+                    child: ListTile(
+                      leading: Image.network(
+                        pathPrefix + book.cover_image,
+                        width: 80,
+                        height: 120,
+                      ),
+                      title: Text(book.title),
+                      subtitle: Text(book.user!.name),
+                      trailing: IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          bookmarksNotifier.removeBook(book);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Removed ${book.title}'),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 );
