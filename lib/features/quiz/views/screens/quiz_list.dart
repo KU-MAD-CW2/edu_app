@@ -1,10 +1,8 @@
-import 'package:edu_app/app/routes/routes.dart';
 import 'package:edu_app/common/layout/app_navigation_bar.dart';
 import 'package:edu_app/common/layout/app_safe_area.dart';
-import 'package:edu_app/features/quiz/models/quiz.dart';
+import 'package:edu_app/features/quiz/views/widgets/quiz_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:edu_app/features/auth/conrollers/auth_provider.dart';
 import 'package:edu_app/features/quiz/controllers/quiz_provider.dart';
@@ -31,9 +29,12 @@ class QuizList extends ConsumerWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [_quizList(quizzes)]),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            quizzes.isEmpty
+                ? const Center(child: Text("No quizzes available"))
+                : QuizListWidget(quizzes)
+          ]),
         ),
       ),
       bottomNavigationBar: AppNavigationBar(currentIndex: 1),
@@ -89,44 +90,6 @@ class QuizList extends ConsumerWidget {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _quizList(List<Quiz> quizzes) {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: ClampingScrollPhysics(),
-      itemCount: quizzes.length,
-      itemBuilder: (context, index) {
-        return Card(
-          color: Colors.red.shade50,
-          margin: EdgeInsets.symmetric(vertical: 8.0),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: ListTile(
-            title: Text(quizzes[index].title),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(quizzes[index].description),
-                Text(
-                  'Name: ${quizzes[index].userName}',
-                  style: TextStyle(fontSize: 12, color: Colors.grey),
-                ),
-                Text(
-                  'Date: ${quizzes[index].createdAt}',
-                  style: TextStyle(fontSize: 12, color: Colors.grey),
-                ),
-              ],
-            ),
-            onTap: () {
-              context.goNamed(quizDetails.name as String,
-                  extra: quizzes[index].id);
-            },
-          ),
-        );
-      },
     );
   }
 }
