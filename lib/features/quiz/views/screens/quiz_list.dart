@@ -32,7 +32,11 @@ class QuizList extends ConsumerWidget {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             quizzes.isEmpty
-                ? const Center(child: Text("No quizzes available"))
+                ? const Center(
+                    child: CircularProgressIndicator(
+                      semanticsLabel: 'Loading quizzes...',
+                    ),
+                  )
                 : QuizListWidget(quizzes)
           ]),
         ),
