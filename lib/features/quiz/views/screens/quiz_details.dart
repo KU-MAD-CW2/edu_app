@@ -46,7 +46,9 @@ class _QuizDetailsState extends ConsumerState<QuizDetails> {
               children: quizDetailsNotifier.isLoading()
                   ? [
                       const Center(
-                        child: CircularProgressIndicator(),
+                        child: CircularProgressIndicator(
+                          semanticsLabel: 'Loading details...',
+                        ),
                       )
                     ]
                   : [

@@ -15,6 +15,7 @@ class QuizDetailsNotifier extends StateNotifier<QuizDetailsModel?> {
 
   Future<void> fetchQuiz(int id) async {
     if (_isLoading) return;
+    state = null;
     _isLoading = true;
     try {
       final response = await QuizService().getQuiz(id);
