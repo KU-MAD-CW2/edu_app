@@ -15,6 +15,18 @@ class QuizService {
     }
   }
 
+  Future<List<Quiz>> searchQuizzes(String keyword) async {
+    try {
+      final response = await Request().get('/quiz/search/$keyword');
+      final data = (response['data'] as List)
+          .map((json) => Quiz.fromJson(json))
+          .toList();
+      return data;
+    } catch (e) {
+      throw Exception('Failed to load quizzes $e');
+    }
+  }
+
   Future<QuizDetailsModel> getQuiz(int id) async {
     try {
       final response = await Request().get('/quiz/$id');

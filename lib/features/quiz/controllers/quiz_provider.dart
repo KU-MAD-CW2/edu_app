@@ -26,4 +26,18 @@ class QuizNotifier extends StateNotifier<List<Quiz>> {
       _isLoading = false;
     }
   }
+
+  Future<void> searchQuizzes(String keyword) async {
+    if (_isLoading) return;
+    _isLoading = true;
+    state = [];
+    try {
+      List<Quiz> response = await QuizService().searchQuizzes(keyword);
+      state = response;
+    } catch (e) {
+      throw Exception('Failed to fetch quizzes: $e');
+    } finally {
+      _isLoading = false;
+    }
+  }
 }

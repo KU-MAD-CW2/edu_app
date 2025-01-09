@@ -46,7 +46,7 @@ class QuizList extends ConsumerWidget {
               ),
               style: const TextStyle(color: Colors.black),
               onChanged: (value) {
-                // quizNotifier.search(value);
+                quizNotifier.searchQuizzes(value);
               },
             ),
             SizedBox(height: 16),
