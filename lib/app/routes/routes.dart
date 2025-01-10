@@ -5,11 +5,15 @@ import 'package:edu_app/features/quiz/views/screens/quiz_details.dart';
 import 'package:edu_app/features/quiz/views/screens/quiz_list.dart';
 import 'package:edu_app/features/textbook/models/book.dart';
 import 'package:edu_app/features/textbook/models/chapter.dart';
+import 'package:edu_app/features/textbook/views/screens/add_book.dart';
+import 'package:edu_app/features/textbook/views/screens/add_chapters.dart';
+import 'package:edu_app/features/textbook/views/screens/admin_dash.dart';
 import 'package:edu_app/features/textbook/views/screens/book_details.dart';
 import 'package:edu_app/features/textbook/views/screens/book_list_view.dart';
 import 'package:edu_app/features/textbook/views/screens/book_reading.dart';
 import 'package:edu_app/features/textbook/views/screens/bookmark_list.dart';
 import 'package:edu_app/features/textbook/views/screens/home.dart';
+import 'package:edu_app/features/textbook/views/screens/view_books.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 
@@ -85,6 +89,31 @@ GoRoute bookmarkRoute = GoRoute(
       _buildPageWithAnimation(state, BookmarkList()),
 );
 
+GoRoute addBookRoute = GoRoute(
+  path: '/addbook',
+  name: 'AddBook',
+  builder: (context, state) => AddBookScreen(),
+);
+
+GoRoute adminDashRoute = GoRoute(
+  path: '/admindash',
+  name: 'AdminDash',
+  builder: (context, state) => AdminDashScreen(),
+);
+
+GoRoute viewBooksRoute = GoRoute(
+  path: '/viewbooks',
+  name: 'ViewBooks',
+  builder: (context, state) => ViewBooksScreen(),
+);
+
+GoRoute addChaptersRoute = GoRoute(
+  path: '/addchapters',
+  name: 'AddChapters',
+  builder: (context, state) => AddChaptersScreen(),
+);
+
+
 // Route list
 List<GoRoute> routes = [
   homeRoute,
@@ -96,7 +125,11 @@ List<GoRoute> routes = [
   bookListRoute,
   chapterDetailRoute,
   quizDetails,
-  bookmarkRoute
+  bookmarkRoute,
+   addBookRoute,
+  adminDashRoute,
+  viewBooksRoute,
+  addChaptersRoute
 ];
 
 Page<dynamic> _buildPageWithAnimation(GoRouterState state, Widget child) {

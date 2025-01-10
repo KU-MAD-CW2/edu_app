@@ -7,7 +7,6 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
       elevation: 0,
       title: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
@@ -24,7 +23,6 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                   Text(
                     "Hello, $name!",
                     style: TextStyle(
-                      color: Colors.black,
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                       height: 1.2,

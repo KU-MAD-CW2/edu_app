@@ -2,6 +2,7 @@ import 'package:edu_app/app/routes/routes.dart';
 import 'package:edu_app/common/layout/app_navigation_bar.dart';
 import 'package:edu_app/common/layout/app_safe_area.dart';
 import 'package:edu_app/features/auth/conrollers/auth_provider.dart';
+import 'package:edu_app/features/textbook/views/screens/admin_dash.dart';
 import 'package:edu_app/features/textbook/views/widgets/book_section.dart';
 import 'package:edu_app/features/textbook/views/widgets/featured_book_section.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   AppBar _buildAppBar(String name) {
     return AppBar(
-      backgroundColor: Colors.white,
       elevation: 0,
       title: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
@@ -61,7 +61,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   Text(
                     "Hello, $name!",
                     style: TextStyle(
-                      color: Colors.black,
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                       height: 1.2,
@@ -84,7 +83,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           child: IconButton(
             icon: HugeIcon(
               icon: HugeIcons.strokeRoundedSearch01,
-              color: Colors.black,
+              color: Theme.of(context).primaryColor,
               size: 25.0,
             ),
             onPressed: () {
@@ -92,6 +91,27 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             },
           ),
         ),
+      Padding(
+        padding: const EdgeInsets.only(right: 10),
+        child: IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const AdminDashScreen(),
+              ),
+            );
+          },
+          icon: Icon(
+            Icons.menu_book_outlined, 
+            color: Colors.blue,
+            size: 25, 
+          ),
+          tooltip: "Manage Books",
+        ),
+      ),
+      
+      
       ],
     );
   }

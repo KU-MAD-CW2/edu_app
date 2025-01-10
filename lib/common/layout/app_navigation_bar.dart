@@ -44,7 +44,7 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
     return Container(
       padding: EdgeInsets.only(top: 10),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).navigationBarTheme.backgroundColor,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.shade300,
@@ -68,7 +68,7 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
           selectedItemColor: Theme.of(context).primaryColor,
           unselectedItemColor: Colors.grey,
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Theme.of(context).canvasColor,
+        //  backgroundColor: Theme.of(context).canvasColor,
           elevation: 0.0,
           items: [
             BottomNavigationBarItem(

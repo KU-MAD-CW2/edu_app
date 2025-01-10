@@ -76,12 +76,11 @@ class AppTheme {
         backgroundColor: Colors.black45,
         surfaceTintColor: Colors.black45,
       ),
+     
       navigationBarTheme: NavigationBarThemeData(
           backgroundColor: Colors.black38,
-          surfaceTintColor: Colors.black38,
           indicatorColor: Colors.grey.shade300,
-          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-          shadowColor: Colors.black),
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
           backgroundColor: primaryColor.shade500));
 
